@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Trickery.Configuration;
 
 namespace Trickery.WebApi.Controllers
 {
@@ -7,6 +8,16 @@ namespace Trickery.WebApi.Controllers
     [ApiController]
     public class TestController : ControllerBase
     {
+        [HttpGet]
+        [Route("public")]
+        public IActionResult Public()
+        {
+            return new JsonResult(new
+            {
+                Message = "Public endpoint"
+            });
+        }
+
         [HttpGet]
         [Route("private")]
         [Authorize]
@@ -19,12 +30,24 @@ namespace Trickery.WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("public")]
-        public IActionResult Public()
+        [Route("private/player")]
+        [Authorize(AuthConfig.Policy.IsPlayer)]
+        public IActionResult PrivatePlayer()
         {
             return new JsonResult(new
             {
-                Message = "Public endpoint"
+                Message = "Private player endpoint"
+            });
+        }
+
+        [HttpGet]
+        [Route("private/admin")]
+        [Authorize(AuthConfig.Policy.IsAdmin)]
+        public IActionResult PrivateAdmin()
+        {
+            return new JsonResult(new
+            {
+                Message = "Private admin endpoint"
             });
         }
     }
