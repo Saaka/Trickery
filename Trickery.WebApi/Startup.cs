@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Trickery.WebApi.Config;
 
 namespace Trickery.WebApi
 {
@@ -25,23 +26,27 @@ namespace Trickery.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services
+                .AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services
+                .RegisterModules()
+                .RegisterAuthServices(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
+            if (env.IsProduction())
             {
                 app.UseHsts();
             }
-
-            //app.UseHttpsRedirection();
-            app.UseMvc();
+            
+            app
+                .UseAuthentication()
+                .UseMiddleware<ExceptionHandlingMiddleware>()
+                .UseMvc();
         }
     }
 }
