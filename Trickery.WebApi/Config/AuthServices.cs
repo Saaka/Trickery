@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using System;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,7 +12,23 @@ namespace Trickery.WebApi.Config
     {
         public static IServiceCollection RegisterAuthServices(this IServiceCollection services, IConfiguration configuration)
         {
-            var domain = GetAuthority(configuration);
+            var authMethod = GetConfigString(configuration, ConfigurationProperties.Auth.Method);
+            if (authMethod == AuthMethod.Auth0)
+                RegisterAuth0(services, configuration);
+            else if (authMethod == AuthMethod.Custom)
+                RegisterCustomAuth(services, configuration);
+
+            return services;
+        }
+
+        private static void RegisterCustomAuth(IServiceCollection services, IConfiguration configuration)
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void RegisterAuth0(IServiceCollection services, IConfiguration configuration)
+        {
+            var domain = GetConfigString(configuration, ConfigurationProperties.Auth0.Authority);
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -20,22 +37,21 @@ namespace Trickery.WebApi.Config
             }).AddJwtBearer(options =>
             {
                 options.Authority = domain;
-                options.Audience = GetAudience(configuration);
+                options.Audience = GetConfigString(configuration, ConfigurationProperties.Auth0.Audience);
             });
 
             services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
-
-            return services;
         }
 
-        private static string GetAudience(IConfiguration configuration)
+        private static string GetConfigString(IConfiguration configuration, string configurationProperty)
         {
-            return configuration[ConfigurationProperties.Auth0.Audience].ToString();
+            return configuration[configurationProperty].ToString();
         }
+    }
 
-        private static string GetAuthority(IConfiguration configuration)
-        {
-            return configuration[ConfigurationProperties.Auth0.Authority].ToString();
-        }
+    public class AuthMethod
+    {
+        public const string Auth0 = "Auth0";
+        public const string Custom = "Custom";
     }
 }

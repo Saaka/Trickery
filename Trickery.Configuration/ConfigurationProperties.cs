@@ -2,6 +2,10 @@
 {
     public class ConfigurationProperties
     {
+        public class Auth
+        {
+            public const string Method = "Auth:Method";
+        }
         public class Auth0
         {
             public const string Audience = "Auth0:Audience";
