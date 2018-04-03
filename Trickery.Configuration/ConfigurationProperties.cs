@@ -6,6 +6,11 @@
         {
             public const string Method = "Auth:Method";
         }
+        public class Google
+        {
+            public const string ClientId = "Google:ClientId";
+            public const string ClientKey = "Google:ClientKey";
+        }
         public class Auth0
         {
             public const string Audience = "Auth0:Audience";

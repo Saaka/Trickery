@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using System;
 
-namespace Trickery.WebApi.Config.Auth
+namespace Trickery.WebApi.Config.Auth.Auth0
 {
     public class HasScopeRequirement : IAuthorizationRequirement
     {

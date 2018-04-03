@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Config\Auth\Custom\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 

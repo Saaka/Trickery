@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Trickery.WebApi.Config.Auth
+namespace Trickery.WebApi.Config.Auth.Auth0
 {
     public class HasScopeHandler : AuthorizationHandler<HasScopeRequirement>
     {

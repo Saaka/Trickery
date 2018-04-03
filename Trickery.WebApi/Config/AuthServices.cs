@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Trickery.Configuration;
 using Trickery.WebApi.Config.Auth;
+using Trickery.WebApi.Config.Auth.Auth0;
 
 namespace Trickery.WebApi.Config
 {
