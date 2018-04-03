@@ -31,7 +31,8 @@ namespace Trickery.WebApi.Controllers
 
         [HttpGet]
         [Route("private/player")]
-        [Authorize(AuthConfig.Policy.IsPlayer)]
+        [Authorize]
+        //[Authorize(AuthConfig.Policy.IsPlayer)]
         public IActionResult PrivatePlayer()
         {
             return new JsonResult(new
@@ -42,7 +43,8 @@ namespace Trickery.WebApi.Controllers
 
         [HttpGet]
         [Route("private/admin")]
-        [Authorize(AuthConfig.Policy.IsAdmin)]
+        [Authorize]
+        //[Authorize(AuthConfig.Policy.IsAdmin)]
         public IActionResult PrivateAdmin()
         {
             return new JsonResult(new
