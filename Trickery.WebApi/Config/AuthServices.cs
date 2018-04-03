@@ -1,9 +1,12 @@
 ﻿using System;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Trickery.Configuration;
+using Trickery.DAL.Model;
+using Trickery.DAL.Store;
 using Trickery.WebApi.Config.Auth;
 using Trickery.WebApi.Config.Auth.Auth0;
 
@@ -24,7 +27,16 @@ namespace Trickery.WebApi.Config
 
         private static void RegisterCustomAuth(IServiceCollection services, IConfiguration configuration)
         {
-            throw new NotImplementedException();
+            services.AddIdentity<AppUser, IdentityRole<int>>()
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
+
+            services.AddAuthentication()
+                .AddGoogle(options =>
+                {
+                    options.ClientId = GetConfigString(configuration, ConfigurationProperties.Google.ClientId);
+                    options.ClientSecret = GetConfigString(configuration, ConfigurationProperties.Google.ClientKey);
+                });
         }
 
         private static void RegisterAuth0(IServiceCollection services, IConfiguration configuration)

@@ -19,6 +19,16 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Trickery.Configuration\Trickery.Configuration.csproj" />
+    <ProjectReference Include="..\Trickery.DAL\Trickery.DAL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.Development.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
