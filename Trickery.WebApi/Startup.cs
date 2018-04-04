@@ -33,6 +33,7 @@ namespace Trickery.WebApi
 
             services
                 .RegisterModules()
+                .RegisterLibs()
                 .RegisterAuthServices(Configuration)
                 .RegisterContext(Configuration);
         }
@@ -47,7 +48,8 @@ namespace Trickery.WebApi
             
             app
                 .UseAuthentication()
-                .UseMiddleware<ExceptionHandlingMiddleware>()
+                .UseLibraries()
+                .UseMiddleware<ExceptionHandlingMiddleware>()                
                 .UseMvc();
         }
     }
