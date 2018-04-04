@@ -8,6 +8,7 @@ using Trickery.DAL.Model;
 using Trickery.DAL.Store;
 using Trickery.WebApi.Config.Auth.Auth0;
 using Trickery.WebApi.Config.Auth.Google;
+using Trickery.WebApi.Controllers.Base;
 
 namespace Trickery.WebApi.Config
 {
@@ -24,24 +25,13 @@ namespace Trickery.WebApi.Config
             return services;
         }
 
-        public static IServiceCollection RegisterIdentity(this IServiceCollection services)
-        {
-            var builder = services.AddIdentityCore<AppUser>(o =>
-            {
-                o.Password.RequireNonAlphanumeric = false;
-            });
-            builder = new IdentityBuilder(builder.UserType, typeof(IdentityRole<int>), builder.Services);
-            builder.AddEntityFrameworkStores<AppDbContext>()
-                .AddDefaultTokenProviders();
-
-            return services;
-        }
-
         private static void RegisterCustomAuth(IServiceCollection services, IConfiguration configuration)
         {
             services.AddIdentity<AppUser, IdentityRole<int>>()
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
+
+            services.AddScoped<IUserIdProvider, GoogleUserIdProvider>();
 
             services
                 .AddAuthentication(options =>

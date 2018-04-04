@@ -1,13 +1,18 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Trickery.Configuration;
+using Trickery.WebApi.Controllers.Base;
 
 namespace Trickery.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TestController : ControllerBase
+    public class TestController : ControllerAuthBase
     {
+        public TestController(IUserIdProvider userIdProvider) 
+            : base(userIdProvider)
+        {
+        }
+
         [HttpGet]
         [Route("public")]
         public IActionResult Public()
@@ -25,7 +30,7 @@ namespace Trickery.WebApi.Controllers
         {
             return new JsonResult(new
             {
-                Message = "Private endpoint"
+                Message = "Private endpoint " + GetUserId()
             });
         }
 
