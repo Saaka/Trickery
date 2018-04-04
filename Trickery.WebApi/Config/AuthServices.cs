@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
@@ -7,8 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Trickery.Configuration;
 using Trickery.DAL.Model;
 using Trickery.DAL.Store;
-using Trickery.WebApi.Config.Auth;
 using Trickery.WebApi.Config.Auth.Auth0;
+using Trickery.WebApi.Config.Auth.Google;
 
 namespace Trickery.WebApi.Config
 {
@@ -25,17 +24,35 @@ namespace Trickery.WebApi.Config
             return services;
         }
 
+        public static IServiceCollection RegisterIdentity(this IServiceCollection services)
+        {
+            var builder = services.AddIdentityCore<AppUser>(o =>
+            {
+                o.Password.RequireNonAlphanumeric = false;
+            });
+            builder = new IdentityBuilder(builder.UserType, typeof(IdentityRole<int>), builder.Services);
+            builder.AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
+
+            return services;
+        }
+
         private static void RegisterCustomAuth(IServiceCollection services, IConfiguration configuration)
         {
             services.AddIdentity<AppUser, IdentityRole<int>>()
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddAuthentication()
-                .AddGoogle(options =>
+            services
+                .AddAuthentication(options =>
                 {
-                    options.ClientId = GetConfigString(configuration, ConfigurationProperties.Google.ClientId);
-                    options.ClientSecret = GetConfigString(configuration, ConfigurationProperties.Google.ClientKey);
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(config =>
+                {
+                    config.UseGoogle(
+                        clientId: GetConfigString(configuration, ConfigurationProperties.Google.ClientId));
                 });
         }
 
