@@ -14,7 +14,7 @@ namespace Trickery.DAL.Store
             optionsBuilder.UseSqlServer(GetConnectionString(),
                 opt =>
                 {
-                    opt.MigrationsHistoryTable("MHWCompanionMigrations");
+                    opt.MigrationsHistoryTable("TrickeryMigrations");
                 });
 
             return new AppDbContext(optionsBuilder.Options);

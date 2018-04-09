@@ -27,10 +27,6 @@ namespace Trickery.WebApi.Config
 
         private static void RegisterCustomAuth(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddIdentity<AppUser, IdentityRole<int>>()
-                .AddEntityFrameworkStores<AppDbContext>()
-                .AddDefaultTokenProviders();
-
             services.AddScoped<IUserIdProvider, GoogleUserIdProvider>();
 
             services

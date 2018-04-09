@@ -24,7 +24,7 @@ namespace Trickery.DAL.Initializer
                 try
                 {
                     var context = services.GetRequiredService<AppDbContext>();
-                    DbInitializer.Initialize(context);
+                    Initialize(context);
                 }
                 catch (Exception ex)
                 {
