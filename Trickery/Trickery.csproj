@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Trickery.DAL\Trickery.DAL.csproj" />
+    <ProjectReference Include="..\Trickery.ViewModel\Trickery.ViewModel.csproj" />
+  </ItemGroup>
+
+</Project>

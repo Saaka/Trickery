@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Trickery.Configuration;
+using Trickery.DAL.Repository.Auth.Google;
 using Trickery.DAL.Store;
 
 namespace Trickery.DAL.Config
@@ -15,7 +16,14 @@ namespace Trickery.DAL.Config
                 GetConnectionString(configuration),
                 cb => cb.MigrationsHistoryTable("TrickeryMigrations")),
             ServiceLifetime.Scoped);
-            //.AddScoped<IAppDbContext>(provider => provider.GetService<AppDbContext>());
+            
+            return services;
+        }
+
+        public static IServiceCollection RegisterDAL(this IServiceCollection services)
+        {
+            services
+                .AddScoped<IGoogleUserRepository, GoogleUserRepository>();
 
             return services;
         }
