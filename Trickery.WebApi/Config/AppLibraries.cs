@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Trickery.WebApi.Config
@@ -8,6 +9,7 @@ namespace Trickery.WebApi.Config
         public static IServiceCollection RegisterLibs(this IServiceCollection services)
         {
             services
+                .AddAutoMapper()
                 .AddSwaggerGen(c =>
                 {
                     c.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "Trickery", Version = "v1" });

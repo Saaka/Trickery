@@ -3,6 +3,8 @@ using Trickery.DAL.Store;
 using Trickery.ViewModel.Auth;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
+using Trickery.DAL.Model;
 
 namespace Trickery.DAL.Repository.Auth.Google
 {
@@ -10,15 +12,19 @@ namespace Trickery.DAL.Repository.Auth.Google
     {
         Task<UserData> GetUser(string googleUserId);
         Task<UserData> RegisterUser(UserRegistrationData registrationData);
+        Task SaveGoogleMap(UserData userData, string googleId);
     }
 
     public class GoogleUserRepository : IGoogleUserRepository
     {
         private readonly AppDbContext context;
+        private readonly IMapper mapper;
 
-        public GoogleUserRepository(AppDbContext context)
+        public GoogleUserRepository(AppDbContext context,
+            IMapper mapper)
         {
             this.context = context;
+            this.mapper = mapper;
         }
 
         public async Task<UserData> GetUser(string googleUserId)
@@ -40,13 +46,23 @@ namespace Trickery.DAL.Repository.Auth.Google
 
         public async Task<UserData> RegisterUser(UserRegistrationData registrationData)
         {
-            return new UserData
+            var user = mapper.Map<User>(registrationData);
+            await context.Users.AddAsync(user);
+            await context.SaveChangesAsync();
+
+            return mapper.Map<UserData>(user);
+        }
+
+        public async Task SaveGoogleMap(UserData userData, string googleId)
+        {
+            var googleUserMap = new GoogleUserMap
             {
-                Id = 0,
-                Email = registrationData.Email,
-                Name = registrationData.Name,
-                Picture = registrationData.Picture
+                UserId = userData.Id,
+                GoogleId = googleId
             };
+
+            await context.GoogleUserMaps.AddAsync(googleUserMap);
+            await context.SaveChangesAsync();
         }
     }
 }

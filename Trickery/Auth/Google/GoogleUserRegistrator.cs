@@ -13,14 +13,18 @@ namespace Trickery.Auth.Google
             this.userRepository = userRepository;
         }
 
-        public async Task<UserData> TryRegisterUser(UserRegistrationData registrationData)
+        public async Task<UserRegistrationResult> TryRegisterUser(UserRegistrationData registrationData)
         {
             var userData = await userRepository.GetUser(registrationData.ExternalId);
 
             if (userData == null)
+            {
                 userData = await userRepository.RegisterUser(registrationData);
+                await userRepository.SaveGoogleMap(userData, registrationData.ExternalId);
 
-            return userData;
+                return new UserRegistrationResult { NewUserRegistered = true, UserData = userData };
+            }
+            return new UserRegistrationResult { UserData = userData };
         }
     }
 }

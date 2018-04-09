@@ -5,6 +5,6 @@ namespace Trickery.Auth
 {
     public interface IUserRegistrator
     {
-        Task<UserData> TryRegisterUser(UserRegistrationData registrationData);
+        Task<UserRegistrationResult> TryRegisterUser(UserRegistrationData registrationData);
     }
 }
