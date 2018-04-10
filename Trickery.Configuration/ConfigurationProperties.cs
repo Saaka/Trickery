@@ -20,5 +20,9 @@
         {
             public const string ConnectionString = "DbSettings:ConnectionString";
         }
+        public class Mongo
+        {
+            public const string ConnectionString = "MongoSettings:ConnectionString";
+        }
     }
 }

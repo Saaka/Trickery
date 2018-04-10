@@ -7,7 +7,8 @@ namespace Trickery.Configuration
         public static IServiceCollection RegisterConfiguration(this IServiceCollection services)
         {
             services.AddScoped<IDbConnectionConfig, ApplicationConfiguration>();
-
+            services.AddScoped<IMongoConnectionConfig, ApplicationConfiguration>();
+            
             return services;
         }
     }
