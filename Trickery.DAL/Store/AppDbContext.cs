@@ -1,6 +1,5 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Trickery.DAL.Model;
+﻿using Microsoft.EntityFrameworkCore;
+using Trickery.Model.Entity;
 
 namespace Trickery.DAL.Store
 {

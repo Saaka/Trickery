@@ -12,10 +12,12 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.0-preview1-final" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.1.0-preview1-final" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.1.0-preview1-final" />
+    <PackageReference Include="MongoDB.Driver" Version="2.5.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Trickery.Configuration\Trickery.Configuration.csproj" />
+    <ProjectReference Include="..\Trickery.Model\Trickery.Model.csproj" />
     <ProjectReference Include="..\Trickery.ViewModel\Trickery.ViewModel.csproj" />
   </ItemGroup>
 

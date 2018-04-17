@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Trickery.DAL.Model
+namespace Trickery.Model.Entity
 {
     public class GoogleUserMap
     {

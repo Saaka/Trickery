@@ -4,7 +4,7 @@ using Trickery.ViewModel.Auth;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
-using Trickery.DAL.Model;
+using Trickery.Model.Entity;
 
 namespace Trickery.DAL.Repository.Auth.Google
 {

@@ -21,7 +21,7 @@ namespace Trickery.DAL.Migrations
                 .HasAnnotation("ProductVersion", "2.1.0-preview1-28290")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Trickery.DAL.Model.GoogleUserMap", b =>
+            modelBuilder.Entity("Trickery.Model.Entity.GoogleUserMap", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -37,7 +37,7 @@ namespace Trickery.DAL.Migrations
                     b.ToTable("GoogleUserMaps");
                 });
 
-            modelBuilder.Entity("Trickery.DAL.Model.User", b =>
+            modelBuilder.Entity("Trickery.Model.Entity.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -53,9 +53,9 @@ namespace Trickery.DAL.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Trickery.DAL.Model.GoogleUserMap", b =>
+            modelBuilder.Entity("Trickery.Model.Entity.GoogleUserMap", b =>
                 {
-                    b.HasOne("Trickery.DAL.Model.User", "User")
+                    b.HasOne("Trickery.Model.Entity.User", "User")
                         .WithMany("GoogleUserMaps")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);

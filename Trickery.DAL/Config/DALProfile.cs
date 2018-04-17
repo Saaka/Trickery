@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Trickery.DAL.Model;
+using Trickery.Model.Entity;
 using Trickery.ViewModel.Auth;
 
 namespace Trickery.DAL.Config
