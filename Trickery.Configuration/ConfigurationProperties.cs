@@ -23,6 +23,7 @@
         public class Mongo
         {
             public const string ConnectionString = "MongoSettings:ConnectionString";
+            public const string Database = "MongoSettings:Database";
         }
     }
 }

@@ -1,5 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+using Trickery.DAL.Repository.Document;
 using Trickery.WebApi.Controllers.Base;
 
 namespace Trickery.WebApi.Controllers
@@ -8,9 +12,13 @@ namespace Trickery.WebApi.Controllers
     [ApiController]
     public class TestController : ControllerAuthBase
     {
-        public TestController(IUserIdProvider userIdProvider) 
+        private readonly ITestMessageRepository testMessageRepository;
+
+        public TestController(IUserIdProvider userIdProvider,
+            ITestMessageRepository testMessageRepository) 
             : base(userIdProvider)
         {
+            this.testMessageRepository = testMessageRepository;
         }
 
         [HttpGet]
@@ -55,6 +63,38 @@ namespace Trickery.WebApi.Controllers
             return new JsonResult(new
             {
                 Message = "Private admin endpoint"
+            });
+        }
+        
+        [HttpPost]
+        [Route("messages")]
+        [Authorize]
+        //[Authorize(AuthConfig.Policy.IsAdmin)]
+        public async Task<IActionResult> AddMessage(string message)
+        {
+            var createdMessage = await testMessageRepository.Add(new Model.Document.TestMessage
+            {
+                Id = Guid.NewGuid(),
+                Message = message,
+                UserId = GetUserId()
+            });
+            return new JsonResult(new
+            {
+                Message = createdMessage
+            });
+        }
+
+        [HttpGet]
+        [Route("messages")]
+        [Authorize]
+        //[Authorize(AuthConfig.Policy.IsAdmin)]
+        public async Task<IActionResult> GetMessages()
+        {
+            var messages = await testMessageRepository.GetAll();
+
+            return new JsonResult(new
+            {
+                Messages = messages
             });
         }
     }

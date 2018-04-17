@@ -3,5 +3,6 @@
     public interface IMongoConnectionConfig
     {
         string GetMongoConnectionString();
+        string GetMongoDatabase();
     }
 }

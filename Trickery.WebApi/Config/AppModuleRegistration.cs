@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Trickery.Configuration;
 using Trickery.DAL.Config;
 
@@ -6,11 +7,11 @@ namespace Trickery.WebApi.Config
 {
     public static class AppModuleRegistration
     {
-        public static IServiceCollection RegisterModules(this IServiceCollection services)
+        public static IServiceCollection RegisterModules(this IServiceCollection services, IConfiguration configuration)
         {
             services
                 .RegisterConfiguration()
-                .RegisterDAL();
+                .RegisterDAL(configuration);
 
             return services;
         }

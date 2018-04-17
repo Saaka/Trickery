@@ -28,7 +28,7 @@ namespace Trickery.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services
-                .RegisterModules()
+                .RegisterModules(Configuration)
                 .RegisterLibs()
                 .RegisterContext(Configuration)
                 .RegisterAuthServices(Configuration)
