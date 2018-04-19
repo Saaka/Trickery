@@ -10,6 +10,7 @@ namespace Trickery.DAL.Repository.Document
     {
         Task<IEnumerable<TestMessage>> GetAll();
         Task<TestMessage> Add(TestMessage item);
+        Task ClearCollection();
     }
 
     public class TestMessageRepository : ITestMessageRepository
@@ -34,6 +35,11 @@ namespace Trickery.DAL.Repository.Document
                 .InsertOneAsync(item);
 
             return item;
+        }
+
+        public async Task ClearCollection()
+        {
+            await context.TestCollection.DeleteManyAsync(x => true);
         }
     }
 }

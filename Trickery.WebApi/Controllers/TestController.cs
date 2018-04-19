@@ -84,6 +84,42 @@ namespace Trickery.WebApi.Controllers
             });
         }
 
+        [HttpPost]
+        [Route("messages/a")]
+        [Authorize]
+        //[Authorize(AuthConfig.Policy.IsAdmin)]
+        public async Task<IActionResult> AddMessageA(string message)
+        {
+            var createdMessage = await testMessageRepository.Add(new Model.Document.TestMessageA
+            {
+                Id = Guid.NewGuid(),
+                MessageA = message,
+                UserId = GetUserId()
+            });
+            return new JsonResult(new
+            {
+                Message = createdMessage
+            });
+        }
+
+        [HttpPost]
+        [Route("messages/b")]
+        [Authorize]
+        //[Authorize(AuthConfig.Policy.IsAdmin)]
+        public async Task<IActionResult> AddMessageB(string message)
+        {
+            var createdMessage = await testMessageRepository.Add(new Model.Document.TestMessageB
+            {
+                Id = Guid.NewGuid(),
+                MessageB = message,
+                UserId = GetUserId()
+            });
+            return new JsonResult(new
+            {
+                Message = createdMessage
+            });
+        }
+
         [HttpGet]
         [Route("messages")]
         [Authorize]
@@ -96,6 +132,17 @@ namespace Trickery.WebApi.Controllers
             {
                 Messages = messages
             });
+        }
+
+        [HttpDelete]
+        [Route("messages")]
+        [Authorize]
+        //[Authorize(AuthConfig.Policy.IsAdmin)]
+        public async Task<IActionResult> DeleteMessages()
+        {
+            await testMessageRepository.ClearCollection();
+
+            return new OkResult();
         }
     }
 }
