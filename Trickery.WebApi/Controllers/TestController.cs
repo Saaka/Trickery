@@ -14,7 +14,7 @@ namespace Trickery.WebApi.Controllers
         private readonly ITestMessageRepository testMessageRepository;
 
         public TestController(IUserIdProvider userIdProvider,
-            ITestMessageRepository testMessageRepository) 
+            ITestMessageRepository testMessageRepository)
             : base(userIdProvider)
         {
             this.testMessageRepository = testMessageRepository;
@@ -41,34 +41,9 @@ namespace Trickery.WebApi.Controllers
             });
         }
 
-        [HttpGet]
-        [Route("private/player")]
-        [Authorize]
-        //[Authorize(AuthConfig.Policy.IsPlayer)]
-        public IActionResult PrivatePlayer()
-        {
-            return new JsonResult(new
-            {
-                Message = "Private player endpoint"
-            });
-        }
-
-        [HttpGet]
-        [Route("private/admin")]
-        [Authorize]
-        //[Authorize(AuthConfig.Policy.IsAdmin)]
-        public IActionResult PrivateAdmin()
-        {
-            return new JsonResult(new
-            {
-                Message = "Private admin endpoint"
-            });
-        }
-        
         [HttpPost]
         [Route("messages")]
         [Authorize]
-        //[Authorize(AuthConfig.Policy.IsAdmin)]
         public async Task<IActionResult> AddMessage(string message)
         {
             var createdMessage = await testMessageRepository.Add(new Model.Document.TestMessage
@@ -86,7 +61,6 @@ namespace Trickery.WebApi.Controllers
         [HttpPost]
         [Route("messages/a")]
         [Authorize]
-        //[Authorize(AuthConfig.Policy.IsAdmin)]
         public async Task<IActionResult> AddMessageA(string message)
         {
             var createdMessage = await testMessageRepository.Add(new Model.Document.TestMessageA
@@ -104,7 +78,6 @@ namespace Trickery.WebApi.Controllers
         [HttpPost]
         [Route("messages/b")]
         [Authorize]
-        //[Authorize(AuthConfig.Policy.IsAdmin)]
         public async Task<IActionResult> AddMessageB(string message)
         {
             var createdMessage = await testMessageRepository.Add(new Model.Document.TestMessageB
@@ -122,7 +95,6 @@ namespace Trickery.WebApi.Controllers
         [HttpGet]
         [Route("messages")]
         [Authorize]
-        //[Authorize(AuthConfig.Policy.IsAdmin)]
         public async Task<IActionResult> GetMessages()
         {
             var messages = await testMessageRepository.GetAll();
@@ -136,7 +108,6 @@ namespace Trickery.WebApi.Controllers
         [HttpGet]
         [Route("messages/a")]
         [Authorize]
-        //[Authorize(AuthConfig.Policy.IsAdmin)]
         public async Task<IActionResult> GetMessagesA()
         {
             var messages = await testMessageRepository.GetAllMessagesA();
@@ -150,7 +121,6 @@ namespace Trickery.WebApi.Controllers
         [HttpGet]
         [Route("messages/b")]
         [Authorize]
-        //[Authorize(AuthConfig.Policy.IsAdmin)]
         public async Task<IActionResult> GetMessagesB()
         {
             var messages = await testMessageRepository.GetAllMessagesB();
@@ -164,7 +134,6 @@ namespace Trickery.WebApi.Controllers
         [HttpDelete]
         [Route("messages")]
         [Authorize]
-        //[Authorize(AuthConfig.Policy.IsAdmin)]
         public async Task<IActionResult> DeleteMessages()
         {
             await testMessageRepository.ClearCollection();
