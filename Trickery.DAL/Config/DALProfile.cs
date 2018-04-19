@@ -13,6 +13,13 @@ namespace Trickery.DAL.Config
 
             CreateMap<UserRegistrationData, User>()
                 .ForMember(x => x.PictureUrl, s => s.ResolveUsing(x => x.Picture));
+
+            MongoDB.Bson.Serialization.BsonClassMap.RegisterClassMap<Model.Document.TestMessage>(map =>
+            {
+                map.AutoMap();
+                map.AddKnownType(typeof(Model.Document.TestMessageA));
+                map.AddKnownType(typeof(Model.Document.TestMessageB));
+            });
         }
     }
 }

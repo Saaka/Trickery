@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using Trickery.DAL.Repository.Document;
 using Trickery.WebApi.Controllers.Base;
@@ -127,6 +126,34 @@ namespace Trickery.WebApi.Controllers
         public async Task<IActionResult> GetMessages()
         {
             var messages = await testMessageRepository.GetAll();
+
+            return new JsonResult(new
+            {
+                Messages = messages
+            });
+        }
+
+        [HttpGet]
+        [Route("messages/a")]
+        [Authorize]
+        //[Authorize(AuthConfig.Policy.IsAdmin)]
+        public async Task<IActionResult> GetMessagesA()
+        {
+            var messages = await testMessageRepository.GetAllMessagesA();
+
+            return new JsonResult(new
+            {
+                Messages = messages
+            });
+        }
+
+        [HttpGet]
+        [Route("messages/b")]
+        [Authorize]
+        //[Authorize(AuthConfig.Policy.IsAdmin)]
+        public async Task<IActionResult> GetMessagesB()
+        {
+            var messages = await testMessageRepository.GetAllMessagesB();
 
             return new JsonResult(new
             {
