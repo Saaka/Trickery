@@ -32,7 +32,8 @@ namespace Trickery.DAL.Config
                 .AddTransient<TestMessageContext>();
             services
                 .AddTransient<ITestMessageRepository, TestMessageRepository>();
-            
+
+            MongoDefaults.GuidRepresentation = MongoDB.Bson.GuidRepresentation.Standard;
             var client = new MongoClient(GetMongoConnectionString(configuration));
             services
                 .AddSingleton(client);
