@@ -23,8 +23,8 @@ namespace Trickery.Auth.Google
         {
             var userData = await memoryCache.GetOrCreateAsync(externalUserId, async (e) =>
             {
-                e.SlidingExpiration = TimeSpan.FromHours(3);
-                e.AbsoluteExpiration = DateTime.Now.AddDays(1);
+                e.SlidingExpiration = TimeSpan.FromMinutes(5);
+                e.AbsoluteExpiration = DateTime.Now.AddHours(8);
 
                 var user = await userRepository.GetUser(externalUserId);
 
