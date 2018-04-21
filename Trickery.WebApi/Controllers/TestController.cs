@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using Trickery.Auth;
 using Trickery.DAL.Repository.Document;
 using Trickery.WebApi.Controllers.Base;
 
@@ -12,10 +13,12 @@ namespace Trickery.WebApi.Controllers
     public class TestController : ControllerAuthBase
     {
         private readonly ITestMessageRepository testMessageRepository;
-
-        public TestController(IUserIdProvider userIdProvider,
-            ITestMessageRepository testMessageRepository)
-            : base(userIdProvider)
+        
+        public TestController(
+            IExternalUserIdProvider userIdProvider, 
+            IUserDataProvider userDataProvider,
+            ITestMessageRepository testMessageRepository) 
+            : base(userIdProvider, userDataProvider)
         {
             this.testMessageRepository = testMessageRepository;
         }
@@ -37,7 +40,7 @@ namespace Trickery.WebApi.Controllers
         {
             return new JsonResult(new
             {
-                Message = "Private endpoint " + GetUserId()
+                Message = "Private endpoint " + GetExternalUserId()
             });
         }
 
@@ -50,7 +53,7 @@ namespace Trickery.WebApi.Controllers
             {
                 Id = Guid.NewGuid(),
                 Message = message,
-                UserId = GetUserId()
+                UserId = GetExternalUserId()
             });
             return new JsonResult(new
             {
@@ -67,7 +70,7 @@ namespace Trickery.WebApi.Controllers
             {
                 Id = Guid.NewGuid(),
                 MessageA = message,
-                UserId = GetUserId()
+                UserId = GetExternalUserId()
             });
             return new JsonResult(new
             {
@@ -84,7 +87,7 @@ namespace Trickery.WebApi.Controllers
             {
                 Id = Guid.NewGuid(),
                 MessageB = message,
-                UserId = GetUserId()
+                UserId = GetExternalUserId()
             });
             return new JsonResult(new
             {

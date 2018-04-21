@@ -27,10 +27,11 @@ namespace Trickery.WebApi.Config
 
         private static void RegisterCustomAuth(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddScoped<IUserIdProvider, GoogleUserIdProvider>();
+            services.AddScoped<IExternalUserIdProvider, GoogleUserIdProvider>();
             services.AddScoped<IUserRegistrationDataProvider, GoogleRegistrationDataProvider>();
             services.AddScoped<IUserRegistrator, GoogleUserRegistrator>();
-            
+            services.AddScoped<IUserDataProvider, GoogleUserDataProvider>();
+
             services
                 .AddAuthentication(options =>
                 {

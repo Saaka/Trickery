@@ -7,32 +7,47 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Trickery.Auth;
 using Trickery.WebApi.Config.Auth;
+using Trickery.WebApi.Controllers.Base;
 
 namespace Trickery.WebApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class AuthController : Controller
+    public class AuthController : ControllerAuthBase
     {
-        private readonly IUserRegistrationDataProvider userDataProvider;
+        private readonly IUserRegistrationDataProvider registrationDataProvider;
         private readonly IUserRegistrator userRegistrator;
-
-        public AuthController(IUserRegistrationDataProvider userDataProvider,
-            IUserRegistrator userRegistrator)
+        
+        public AuthController(IExternalUserIdProvider userIdProvider,
+            IUserDataProvider userDataProvider,
+            IUserRegistrationDataProvider registrationDataProvider,
+            IUserRegistrator userRegistrator) 
+            : base(userIdProvider, userDataProvider)
         {
-            this.userDataProvider = userDataProvider;
+            this.registrationDataProvider = registrationDataProvider;
             this.userRegistrator = userRegistrator;
         }
+
         [HttpGet]
         [Authorize]
         [Route("tryregister")]
         public async Task<IActionResult> TryRegister()
         {
-            var registrationData = userDataProvider.GetUserData(HttpContext);
+            var registrationData = registrationDataProvider.GetUserData(HttpContext);
 
             var user = await userRegistrator.TryRegisterUser(registrationData);
 
             return new JsonResult(user);
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("user")]
+        public async Task<IActionResult> GetUser()
+        {
+            var userData = await GetUserData();
+
+            return new JsonResult(userData);
         }
     }
 }

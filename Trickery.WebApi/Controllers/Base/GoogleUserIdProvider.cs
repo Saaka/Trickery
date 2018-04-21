@@ -4,7 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 
 namespace Trickery.WebApi.Controllers.Base
 {
-    public class GoogleUserIdProvider : IUserIdProvider
+    public class GoogleUserIdProvider : IExternalUserIdProvider
     {
         public string GetUserId(HttpContext context)
         {

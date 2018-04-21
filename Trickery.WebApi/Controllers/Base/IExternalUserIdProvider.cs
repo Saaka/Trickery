@@ -2,7 +2,7 @@
 
 namespace Trickery.WebApi.Controllers.Base
 {
-    public interface IUserIdProvider
+    public interface IExternalUserIdProvider
     {
         string GetUserId(HttpContext context);
     }
