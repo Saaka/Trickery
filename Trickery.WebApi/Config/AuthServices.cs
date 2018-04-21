@@ -22,6 +22,8 @@ namespace Trickery.WebApi.Config
             else if (authMethod == AuthMethod.Custom)
                 RegisterCustomAuth(services, configuration);
 
+            services.AddScoped<IUserContextDataProvider, UserContextDataProvider>();
+
             return services;
         }
 

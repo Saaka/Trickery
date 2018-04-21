@@ -17,12 +17,12 @@ namespace Trickery.WebApi.Controllers
     {
         private readonly IUserRegistrationDataProvider registrationDataProvider;
         private readonly IUserRegistrator userRegistrator;
-        
-        public AuthController(IExternalUserIdProvider userIdProvider,
-            IUserDataProvider userDataProvider,
+
+        public AuthController(
+            IUserContextDataProvider userContextDataProvider,
             IUserRegistrationDataProvider registrationDataProvider,
             IUserRegistrator userRegistrator) 
-            : base(userIdProvider, userDataProvider)
+            : base(userContextDataProvider)
         {
             this.registrationDataProvider = registrationDataProvider;
             this.userRegistrator = userRegistrator;

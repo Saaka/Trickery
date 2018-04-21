@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Trickery.Auth;
+using Trickery.WebApi.Config.Auth;
 using Trickery.WebApi.Controllers.Base;
 
 namespace Trickery.WebApi.Controllers
@@ -8,10 +9,8 @@ namespace Trickery.WebApi.Controllers
     [ApiController]
     public class GameController : ControllerAuthBase
     {
-        public GameController(
-            IExternalUserIdProvider userIdProvider,
-            IUserDataProvider userDataProvider)
-            : base(userIdProvider, userDataProvider)
+        public GameController(IUserContextDataProvider userContextDataProvider) 
+            : base(userContextDataProvider)
         {
         }
     }

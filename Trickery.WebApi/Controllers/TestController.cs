@@ -4,6 +4,7 @@ using System;
 using System.Threading.Tasks;
 using Trickery.Auth;
 using Trickery.DAL.Repository.Document;
+using Trickery.WebApi.Config.Auth;
 using Trickery.WebApi.Controllers.Base;
 
 namespace Trickery.WebApi.Controllers
@@ -15,10 +16,9 @@ namespace Trickery.WebApi.Controllers
         private readonly ITestMessageRepository testMessageRepository;
         
         public TestController(
-            IExternalUserIdProvider userIdProvider, 
-            IUserDataProvider userDataProvider,
+            IUserContextDataProvider userContextDataProvider,
             ITestMessageRepository testMessageRepository) 
-            : base(userIdProvider, userDataProvider)
+            : base(userContextDataProvider)
         {
             this.testMessageRepository = testMessageRepository;
         }

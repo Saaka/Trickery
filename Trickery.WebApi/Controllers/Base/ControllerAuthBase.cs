@@ -2,31 +2,27 @@
 using System.Threading.Tasks;
 using Trickery.Auth;
 using Trickery.ViewModel.Auth;
+using Trickery.WebApi.Config.Auth;
 
 namespace Trickery.WebApi.Controllers.Base
 {
     public abstract class ControllerAuthBase : ControllerBase
     {
-        public ControllerAuthBase(IExternalUserIdProvider userIdProvider,
-            IUserDataProvider userDataProvider)
+        public ControllerAuthBase(IUserContextDataProvider userContextDataProvider)
         {
-            UserIdProvider = userIdProvider;
-            UserDataProvider = userDataProvider;
+            UserContextDataProvider = userContextDataProvider;
         }
 
         protected string GetExternalUserId()
         {
-            return UserIdProvider.GetUserId(HttpContext);
+            return UserContextDataProvider.GetExternalUserId(HttpContext);
         }
 
         protected async Task<UserData> GetUserData()
         {
-            var externalId = UserIdProvider.GetUserId(HttpContext);
-
-            return await UserDataProvider.GetUserData(externalId);
+            return await UserContextDataProvider.GetUserData(HttpContext);
         }
-
-        protected IExternalUserIdProvider UserIdProvider { get; }
-        protected IUserDataProvider UserDataProvider { get; }
+        
+        protected IUserContextDataProvider UserContextDataProvider { get; }
     }
 }
