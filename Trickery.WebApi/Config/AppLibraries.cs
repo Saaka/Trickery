@@ -10,6 +10,7 @@ namespace Trickery.WebApi.Config
         {
             services
                 .AddAutoMapper()
+                .AddMemoryCache()
                 .AddSwaggerGen(c =>
                 {
                     c.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "Trickery", Version = "v1" });
