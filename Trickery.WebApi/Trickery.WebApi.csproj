@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Trickery.Commands\Trickery.Commands.csproj" />
     <ProjectReference Include="..\Trickery.Configuration\Trickery.Configuration.csproj" />
     <ProjectReference Include="..\Trickery.DAL\Trickery.DAL.csproj" />
     <ProjectReference Include="..\Trickery.ViewModel\Trickery.ViewModel.csproj" />

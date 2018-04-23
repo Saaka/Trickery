@@ -3,6 +3,6 @@
     public enum GameMode
     {
         SingleDevice = 1,
-        MultiDevide = 2
+        MultiDevice = 2
     }
 }

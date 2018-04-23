@@ -18,7 +18,7 @@ namespace Trickery.WebApi.Controllers.Base
             return UserContextDataProvider.GetExternalUserId(HttpContext);
         }
 
-        protected async Task<UserData> GetUserData()
+        protected async Task<UserData> GetUserDataAsync()
         {
             return await UserContextDataProvider.GetUserData(HttpContext);
         }

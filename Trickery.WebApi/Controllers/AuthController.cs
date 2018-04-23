@@ -45,7 +45,7 @@ namespace Trickery.WebApi.Controllers
         [Route("user")]
         public async Task<IActionResult> GetUser()
         {
-            var userData = await GetUserData();
+            var userData = await GetUserDataAsync();
 
             return new JsonResult(userData);
         }

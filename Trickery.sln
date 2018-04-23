@@ -17,7 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trickery.ViewModel", "Trick
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trickery.Model", "Trickery.Model\Trickery.Model.csproj", "{3F7AE5A7-2FF6-4D0D-A63B-A04A8EF18198}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trickery.Common", "Trickery.Common\Trickery.Common.csproj", "{D2A94C62-B47D-4D55-991F-DE515E1CF9AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trickery.Common", "Trickery.Common\Trickery.Common.csproj", "{D2A94C62-B47D-4D55-991F-DE515E1CF9AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trickery.Commands", "Trickery.Commands\Trickery.Commands.csproj", "{FCFC1518-ED00-4E9F-BBB0-63012A770752}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{D2A94C62-B47D-4D55-991F-DE515E1CF9AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2A94C62-B47D-4D55-991F-DE515E1CF9AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2A94C62-B47D-4D55-991F-DE515E1CF9AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCFC1518-ED00-4E9F-BBB0-63012A770752}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCFC1518-ED00-4E9F-BBB0-63012A770752}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCFC1518-ED00-4E9F-BBB0-63012A770752}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCFC1518-ED00-4E9F-BBB0-63012A770752}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

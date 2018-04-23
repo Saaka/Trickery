@@ -9,7 +9,7 @@ namespace Trickery.WebApi.Config
         public static IServiceCollection RegisterLibs(this IServiceCollection services)
         {
             services
-                .AddAutoMapper()
+                .AddAutoMapper(mc => mc.AddProfiles(typeof(MainProfile)))
                 .AddMemoryCache()
                 .AddSwaggerGen(c =>
                 {
@@ -23,10 +23,10 @@ namespace Trickery.WebApi.Config
         {
             app
                 .UseSwagger()
-                .UseSwaggerUI( c=>
-                {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Trickery");
-                });
+                .UseSwaggerUI(c =>
+               {
+                   c.SwaggerEndpoint("/swagger/v1/swagger.json", "Trickery");
+               });
 
             return app;
         }

@@ -4,7 +4,7 @@ using Trickery.ViewModel.Auth;
 
 namespace Trickery.DAL.Config
 {
-    public class DALProfile: Profile
+    public class DALProfile : Profile
     {
         public DALProfile()
         {
