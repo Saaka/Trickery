@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Trickery.Config;
 using Trickery.Configuration;
 using Trickery.DAL.Config;
 
@@ -11,6 +12,7 @@ namespace Trickery.WebApi.Config
         {
             services
                 .RegisterConfiguration()
+                .RegisterMainDependencies()
                 .RegisterDAL(configuration);
 
             return services;

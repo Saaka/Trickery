@@ -1,5 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Trickery.Auth;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
+using Trickery.Infrastructure;
+using Trickery.ViewModel.Game;
 using Trickery.WebApi.Config.Auth;
 using Trickery.WebApi.Controllers.Base;
 
@@ -9,9 +13,26 @@ namespace Trickery.WebApi.Controllers
     [ApiController]
     public class GameController : ControllerAuthBase
     {
-        public GameController(IUserContextDataProvider userContextDataProvider) 
+        private readonly IGuidProvider guidProvider;
+
+        public GameController(IUserContextDataProvider userContextDataProvider,
+            IGuidProvider guidProvider) 
             : base(userContextDataProvider)
         {
+            this.guidProvider = guidProvider;
+        }
+
+        [HttpPost]
+        [Authorize]
+        [Route("create")]
+        public async Task<CreateGameResult> CreateGame(CreateGameRequest request)
+        {
+            string gameId = guidProvider.CreateGuid();
+
+            return new CreateGameResult
+            {
+                GameGuid = gameId
+            };
         }
     }
 }
